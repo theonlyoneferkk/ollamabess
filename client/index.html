@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            background-color: #333;
+        }
+
+        #res {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="prompt" placeholder="Inserisci il tuo messaggio">
+    <button onclick="fetchMex()">Invia</button>
+    <pre id="res"></pre>
+</body>
+
+<script>
+    const fetchMex = () => {
+        fetch("http://localhost:5000/fetchMex?" + new URLSearchParams({
+            prompt: document.getElementById("prompt").value
+        })).then(response => response.text())
+            .then(data => {
+                console.log(data)
+                document.getElementById("res").innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</html>
