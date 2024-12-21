@@ -1,10 +1,12 @@
 import express from "express";
+import cors from "cors";
 const app = express();
 const port = 5000;
+app.use(cors());
 
 app.get("/fetchMex", async (req, res) => {
 	if (!req.query.prompt) {
-		res.send({ error: "prompt non valido" });
+		res.send("Errore, prompt non valido");
 		return;
 	}
 

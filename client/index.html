@@ -4,34 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PoorGPT</title>
     <style>
         body {
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             background-color: #333;
         }
 
+        #kindaForm {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        #buttonSend {
+            border-radius: 16px;
+            border: 0;
+            padding: .75rem;
+            background-color: #ccc;
+            margin-top: 1rem;
+            margin-left: .5rem;
+        }
+
+        #prompt {
+            border: 0;
+            border-radius: 16px;
+            padding: 1rem;
+            /* resize: none; */
+            outline: solid #9e755d;
+        }
+
         #res {
-            font-family: 'Courier New', Courier, monospace;
+            margin: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: justify;
+        }
+
+        p {
+            margin: 0;
         }
     </style>
 </head>
 
 <body>
-    <input type="text" id="prompt" placeholder="Inserisci il tuo messaggio">
-    <button onclick="fetchMex()">Invia</button>
-    <pre id="res"></pre>
+    <div id="kindaForm">
+        <textarea id="prompt" rows="20" cols="80" placeholder="Inserisci il tuo messaggio"></textarea>
+        <button id="buttonSend" onclick="fetchMex()">Invia</button>
+    </div>
+    <div id="res"></div>
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+    integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     const fetchMex = () => {
         fetch("http://localhost:5000/fetchMex?" + new URLSearchParams({
             prompt: document.getElementById("prompt").value
         })).then(response => response.text())
-            .then(data => {
-                console.log(data)
-                document.getElementById("res").innerHTML = data;
+            .then(testo => {
+                console.log(testo)
+                converter = new showdown.Converter()
+                document.getElementById("res").innerHTML = converter.makeHtml(testo);
             })
             .catch(error => console.error('Error:', error));
     }
