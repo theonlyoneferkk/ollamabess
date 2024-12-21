@@ -11,6 +11,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             background-color: #333;
+            overflow-y: scroll;
         }
 
         #kindaForm {
@@ -27,6 +28,11 @@
             background-color: #ccc;
             margin-top: 1rem;
             margin-left: .5rem;
+            cursor: pointer;
+        }
+
+        #buttonSend:active {
+            background-color: #bbb;
         }
 
         #prompt {
@@ -35,16 +41,30 @@
             padding: 1rem;
             /* resize: none; */
             outline: solid #9e755d;
+            font-size: large;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        #res {
+        .res {
             margin: 1rem;
             font-family: Arial, Helvetica, sans-serif;
             text-align: justify;
+            max-width: 50%;
+            /* border: 1px solid red; */
+            font-size: larger;
+        }
+
+        #resWrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
         }
 
         p {
             margin: 0;
+            line-height: 1.5rem;
         }
     </style>
 </head>
@@ -54,7 +74,7 @@
         <textarea id="prompt" rows="20" cols="80" placeholder="Inserisci il tuo messaggio"></textarea>
         <button id="buttonSend" onclick="fetchMex()">Invia</button>
     </div>
-    <div id="res"></div>
+    <div id="resWrapper"></div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
@@ -68,7 +88,11 @@
             .then(testo => {
                 console.log(testo)
                 converter = new showdown.Converter()
-                document.getElementById("res").innerHTML = converter.makeHtml(testo);
+                const historyWrapper = document.querySelector("#resWrapper")
+                const res = document.createElement("div")
+                res.classList.add("res")
+                res.innerHTML = converter.makeHtml(testo)
+                historyWrapper.insertBefore(res, historyWrapper.firstChild);
             })
             .catch(error => console.error('Error:', error));
     }
