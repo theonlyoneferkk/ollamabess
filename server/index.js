@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 const app = express();
-const port = 5000;
+const port = 5003;
 app.use(cors());
 
 app.get("/fetchMex", async (req, res) => {
