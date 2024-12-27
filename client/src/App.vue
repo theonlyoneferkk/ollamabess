@@ -25,7 +25,10 @@ const fetchMex = () => {
 				"</div>" +
 				res_hist;
 		})
-		.catch((error) => console.error("Error:", error));
+		.catch((error) => {
+			console.error("Error:", error);
+			alert(error);
+		});
 };
 </script>
 
