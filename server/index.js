@@ -1,9 +1,18 @@
 import express from "express";
 import cors from "cors";
+import { exec } from "child_process";
 const app = express();
 const port = 5003;
+const ai_model = "llama3.2"; //!
 app.use(cors());
 
+exec("ollama serve", (error, stdout, stderr) => {
+	if (error) {
+		console.error(`Errore durante l'avvio di Ollama: ${error}`);
+		return;
+	}
+	console.log("Server Ollama avviato");
+});
 app.get("/fetchMex", async (req, res) => {
 	if (!req.query.prompt) {
 		res.send("Errore, prompt non valido");
@@ -15,7 +24,7 @@ app.get("/fetchMex", async (req, res) => {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
-			model: "llama3.2",
+			model: ai_model,
 			prompt: req.query.prompt,
 		}),
 	})
