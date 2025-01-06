@@ -4,6 +4,7 @@ import { Converter } from "showdown";
 console.clear();
 
 let ai_res = ref("");
+let arr_intro = ref([]);
 
 const port = 5003;
 const endpoint = "http://localhost:" + port + "/fetchMex?";
@@ -39,7 +40,7 @@ const fetchMex = () => {
 			<textarea name="" id="prompt"></textarea>
 			<button id="prompt-send" @click="fetchMex">Invia</button>
 		</div>
-		<div v-html="ai_res"></div>
+		<div v-html="ai_res" class="res-wrapper"></div>
 	</main>
 </template>
 
@@ -49,6 +50,12 @@ const fetchMex = () => {
 	margin-top: 1rem;
 	padding: 1rem;
 	text-align: justify;
+}
+.res-wrapper {
+	overflow-y: auto;
+	max-height: 70vh;
+	max-width: 80vw;
+	padding: 1rem;
 }
 </style>
 <style scoped>
