@@ -46,19 +46,20 @@ const fetchMex = () => {
 
 <style>
 .ai-reply {
-	border: 1px solid red;
-	margin-top: 1rem;
+	border: 1px solid #555;
+	border-radius: 16px;
 	padding: 1rem;
+	margin-bottom: 1rem;
 	text-align: justify;
 }
+</style>
+<style scoped>
 .res-wrapper {
 	overflow-y: auto;
 	max-height: 70vh;
 	max-width: 80vw;
 	padding: 1rem;
 }
-</style>
-<style scoped>
 main {
 	position: absolute;
 	inset: 0;
